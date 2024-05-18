@@ -89,7 +89,7 @@ class Client(Thread):
         if recibido =='4':
             print("Se ha conectado un cliente solicitando la operacion Division")
             if len(lsdivi) > 1:   
-                direccion='si@'+lsdivi[0]+'@'+lsdivi[1]+'@MULTIPLICACION@'
+                direccion='si@'+lsdivi[0]+'@'+lsdivi[1]+'@DIVICION@'
                 self.conn.send(direccion.encode("UTF-8"))
             self.conn.send('o'.encode("UTF-8"))
             
@@ -109,20 +109,20 @@ class Client(Thread):
             
         
 def main():
-    conexiones=[]
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind((TCP_IP, TCP_PORT))
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     s.listen(5)
-    while True:
-        
-        conn, addr = s.accept()
-        c = Client(conn, addr)
-        c.start()
-    conn.close()
-    s.close()
-if __name__ == "__main__":
     print("Servidor intermedio multihilo esperando peticiones...")
+    try:
+        while True:
+            conn, addr = s.accept()
+            c = Client(conn, addr)
+            c.start()
+    except KeyboardInterrupt:
+        print("Servidor detenido.")
+    finally:
+        s.close()
+
+if __name__ == "__main__":
     main()
-conn.close()
-s.close()
