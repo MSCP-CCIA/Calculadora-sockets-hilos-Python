@@ -49,7 +49,7 @@ def main():
         # Preguntar al usuario si desea realizar otra operación
         print("¿Desea realizar otra operación? (sí/no):")
         continuar = input().strip().lower()
-        if continuar != 'sí':
+        if continuar != 'si':
             break
 
 
